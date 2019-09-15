@@ -82,6 +82,9 @@ to remove files from hdfs
 -bash-4.2$ hdfs dfs -put /mnt/host/home/wanli/cse6250/bigdata4health/homework2/code/pig/training/ /hw2
 -bash-4.2$ hdfs dfs -ls /hw2
 ```
+```
+-bash-4.2$ hdfs dfs -chown -R root /hw2/training
+```
 
 
 ## Run Hive scripts
