@@ -80,15 +80,24 @@ to remove files from hdfs
 ```
 > hdfs dfs -mkdir -p /hw2
 > hdfs dfs -put /mnt/host/home/wanli/cse6250/bigdata4health/homework2/code/pig/training/ /hw2
+> hdfs dfs -put /mnt/host/home/wanli/cse6250/bigdata4health/homework2/code/lr/ /hw2
 > hdfs dfs -ls /hw2
 ```
 ```
-> hdfs dfs -chown -R root /hw2/training
+> hdfs dfs -chown -R root /hw2
 ```
+outside of hdfs system
+```
+# hadoop jar /usr/lib/hadoop-mapreduce/hadoop-streaming.jar -D mapreduce.job.reduces=5 -files lr -mapper "python lr/mapper.py -n 5 -r 0.4 " -reducer "python lr/reducer.py -f 3618" -input /hw2/training -output /hw2/models
  ```
- > hadoop jar /usr/lib/hadoop-mapreduce/hadoop-streaming.jar -D mapreduce.job.reduces=5 -files lr -mapper "python lr/mapper.py -n 5 -r 0.4 " - reducer "python lr/reducer.py -f 3618 " -input /hw2/training -output /hw2/models```
- ```
+copy model to local 
+```
+# hdfs dfs -get /hw2/models
+```
 
+```
+#cat pig/testing/* | python lr/testensemble.py -m models/
+```
 
 ## Run Hive scripts
 ```
